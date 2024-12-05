@@ -19,4 +19,6 @@ SRCS += \
   ./watch-faces/demo/light_sensor_face.c \
   ./watch-faces/demo/irda_demo_face.c \
   ./watch-faces/io/chirpy_demo_face.c \
+  ./watch-faces/complication/counter_face.c \
+  ./watch-faces/complication/pulsometer_face.c \
 # New watch faces go above this line.

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Joey Castillo
+ * Copyright (c) 2022 Shogo Okamoto
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,42 @@
  * SOFTWARE.
  */
 
-#pragma once
+#ifndef COUNTER_FACE_H_
+#define COUNTER_FACE_H_
 
-#include "clock_face.h"
-#include "beats_face.h"
-#include "world_clock_face.h"
-#include "advanced_alarm_face.h"
-#include "countdown_face.h"
-#include "fast_stopwatch_face.h"
-#include "sunrise_sunset_face.h"
-#include "character_set_face.h"
-#include "accel_interrupt_count_face.h"
-#include "all_segments_face.h"
-#include "float_demo_face.h"
-#include "temperature_display_face.h"
-#include "temperature_logging_face.h"
-#include "activity_logging_face.h"
-#include "voltage_face.h"
-#include "set_time_face.h"
-#include "preferences_face.h"
-#include "light_sensor_face.h"
-#include "irda_demo_face.h"
-#include "chirpy_demo_face.h"
-#include "counter_face.h"
-#include "pulsometer_face.h"
-// New includes go above this line.
+/*
+ * COUNTER face
+ *
+ * Counter face is designed to count the number of running laps during exercises.
+ *
+ * Usage:
+ * Short-press ALARM to increment the counter (loops at 99)
+ * Long-press ALARM to reset the counter.
+ * Long-press LIGHT to toggle sound.
+ */
+
+#include "movement.h"
+
+typedef struct {
+    uint8_t counter_idx;
+    bool beep_on;
+} counter_state_t;
+
+
+void counter_face_setup(uint8_t watch_face_index, void ** context_ptr);
+void counter_face_activate(void *context);
+bool counter_face_loop(movement_event_t event, void *context);
+void counter_face_resign(void *context);
+
+void print_counter(counter_state_t *state);
+void beep_counter(counter_state_t *state);
+
+#define counter_face ((const watch_face_t){ \
+    counter_face_setup, \
+    counter_face_activate, \
+    counter_face_loop, \
+    counter_face_resign, \
+    NULL, \
+})
+
+#endif // COUNTER_FACE_H_
