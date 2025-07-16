@@ -61,13 +61,13 @@ typedef struct {
 
 static void pulsometer_display_title(pulsometer_state_t *pulsometer) {
     (void) pulsometer;
-    watch_display_text_with_fallback(0, PULSOMETER_FACE_TITLE, PULSOMETER_FACE_TITLE);
+    watch_display_text_with_fallback(WATCH_POSITION_TOP_LEFT, PULSOMETER_FACE_TITLE, PULSOMETER_FACE_TITLE);
 }
 
 static void pulsometer_display_calibration(pulsometer_state_t *pulsometer) {
     char buf[3];
     snprintf(buf, sizeof(buf), "%2hhd", pulsometer->calibration);
-    watch_display_text_with_fallback(2, buf, buf);
+    watch_display_text_with_fallback(WATCH_POSITION_TOP_RIGHT, buf, buf);
 }
 
 static void pulsometer_display_measurement(pulsometer_state_t *pulsometer) {
